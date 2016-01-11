@@ -3,7 +3,9 @@
 *.iml
 .idea/
 *.swp
+logs
 .build/
+_build
 *.swo
 *.swn
 *.DS_Store

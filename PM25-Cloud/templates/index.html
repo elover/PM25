@@ -7,7 +7,7 @@
         var __uuid = '${uuid}';
         var __bucket = '${bucket}';
         var __servertime = '${servertime}';
-        var __lags = new Date().getTime() - ${servertime};
+        var __lags = new Date().getTime() - __servertime;
         var __public_key = '${public_key}';
     </script>
     <script type="text/javascript" src="/js/vendor/jquery-1.9.1.js"></script>
@@ -170,7 +170,7 @@
 </article>
 
 <footer class="ng-scope">
-    <a href="http://pm25.io/docs/">
+	<a href="../docs/" target="_blank">
         <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>&nbsp;&nbsp;帮助文档
     </a>
     <small class="ng-binding">PM2.5 version 0.143.5</small>

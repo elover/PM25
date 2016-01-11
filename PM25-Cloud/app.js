@@ -13,21 +13,11 @@ var rewriteModule = require('http-rewrite-middleware');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var app = express();
-var ssoauth = require('your-ssoauth-middleware');
+var ssoauth = require('basic-auth-connect');
 var config = require('./configure');
 
 // keep the same rule with nginx rewrite
 var rewriteMiddleware = rewriteModule.getMiddleware([]);
-
-var unless = function(path, middleware) {
-    return function(req, res, next) {
-        if (path === req.path) {
-            return next();
-        } else {
-            return middleware(req, res, next);
-        }
-    };
-};
 
 // view engine setup
 app.set('view engine', 'html');
@@ -41,12 +31,15 @@ app.use(cookieParser());
 app.use(rewriteMiddleware);
 
 // for production environment
-app.set('env', 'production');
-
+app.set('env', 'environment');
 if(app.get('env') === 'production') {
+	console.log('pro');
     app.set('views', path.join(__dirname, 'build/templates'));
     app.use(express.static(path.join(__dirname, 'build/public')));
-} else {
+}
+else
+{
+	console.log('dev');
     app.set('views', path.join(__dirname, 'templates'));
     app.use(express.static(path.join(__dirname, 'public')));
 }
@@ -54,19 +47,21 @@ if(app.get('env') === 'production') {
 /// session support
 app.use(session({
     secret: 'pm25-secret',
+	user:{id:'55'},
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({ url: config.sessiondbpath }),
     cookie: { secure: false, httpOnly: false, maxAge: 120 * 60 * 1000 * 100 }
 }));
 
+app.use(ssoauth('pm','2.5'));
 /// ssoauth
-app.use(unless('/settoken', ssoauth({
-    clientId: 'clientId',
-    clientSecret: 'clientSecret',
-    redirect: 'server',
-    settoken: '/settoken?continue='
-})));
+//app.use(unless('/settoken', ssoauth.auth({
+//    clientId: 'clientId',
+//    clientSecret: 'clientSecret',
+//    redirect: 'server',
+//    settoken: '/settoken?continue='
+//})));
 
 /// dynamically include controllers
 app.use(enrouten({directory: 'controllers'}));

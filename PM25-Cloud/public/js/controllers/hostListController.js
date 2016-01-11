@@ -191,7 +191,7 @@ angular.module('pm25').controller('hostListController', ['$scope', '$filter', '$
     };
 
     var socketOptions = { rememberTransport: false };
-    var socket = new WebSocket('ws://service.pm25.io:8042');
+    var socket = new WebSocket('ws://localhost:8042');
     var session_id = decodeURIComponent($cookies['connect.sid']).match(/s\:([^.]+)/im)[1];
     var channel = session_id + ':' + __public_key;
     var ask = function() {

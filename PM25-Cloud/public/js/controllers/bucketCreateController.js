@@ -25,6 +25,10 @@ angular.module('pm25').controller('bucketCreateController', ['$scope', '$filter'
                 location.href = '/buckets';
                 return;
             }
+	        else
+	        {
+		        console.log(req);
+	        }
         });
     };
 

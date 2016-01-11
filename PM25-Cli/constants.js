@@ -69,8 +69,8 @@ var csts = {
   // REMOTE_HOST            : 's1.keymetrics.io',
   // SEND_INTERVAL          : 1000
 
-  KEYMETRICS_ROOT_URL    : process.env.KEYMETRICS_NODE || 'root.pm25.io',
-  KEYMETRICS_ROOT_PORT   : process.env.KEYMETRICS_PORT || 80,
+  KEYMETRICS_ROOT_URL    : process.env.KEYMETRICS_NODE || 'localhost',
+  KEYMETRICS_ROOT_PORT   : process.env.KEYMETRICS_PORT || 8000,
 
   DEFAULT_MODULE_JSON    : 'package.json',
 
