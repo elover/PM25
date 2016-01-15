@@ -46,14 +46,23 @@ else {
 /// session support
 app.use(session({
     secret: 'pm25-secret',
-    user: {id: '55'},
     resave: false,
     saveUninitialized: true,
     store: new MongoStore({url: config.sessiondbpath}),
     cookie: {secure: false, httpOnly: false, maxAge: 120 * 60 * 1000 * 100}
 }));
 
-app.use(ssoauth('pm', '2.5'));
+app.use(ssoauth('pm', '2.5')); // 登录时输入
+
+// 默认设置一个session uid=1 ,否则后面会走不通
+app.use(function (req, res, next) {
+    req.session.user = {
+        id: 1
+    };
+    next();
+});
+
+
 /// ssoauth
 //app.use(unless('/settoken', ssoauth.auth({
 //    clientId: 'clientId',
