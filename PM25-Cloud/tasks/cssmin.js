@@ -2,7 +2,6 @@
 'use strict';
 
 module.exports = {
-    deps: ['sass'],
     task: function cssmin(gulp) {
         var minifyCSS = require('gulp-minify-css');
         var ignore = require('gulp-ignore');
