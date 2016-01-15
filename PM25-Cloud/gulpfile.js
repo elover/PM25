@@ -18,7 +18,6 @@ for (var task in tasks) {
 gulp.task('default', [
     'del',
     'copyto',
-    'sass',
     'cssmin',
     'jsmin',
     'compile'
