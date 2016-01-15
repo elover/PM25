@@ -32,14 +32,13 @@ app.use(rewriteMiddleware);
 
 // for production environment
 app.set('env', 'environment');
-if(app.get('env') === 'production') {
-	console.log('pro');
+if (app.get('env') === 'production') {
+    console.log('pro');
     app.set('views', path.join(__dirname, 'build/templates'));
     app.use(express.static(path.join(__dirname, 'build/public')));
 }
-else
-{
-	console.log('dev');
+else {
+    console.log('dev');
     app.set('views', path.join(__dirname, 'templates'));
     app.use(express.static(path.join(__dirname, 'public')));
 }
@@ -47,14 +46,14 @@ else
 /// session support
 app.use(session({
     secret: 'pm25-secret',
-	user:{id:'55'},
+    user: {id: '55'},
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({ url: config.sessiondbpath }),
-    cookie: { secure: false, httpOnly: false, maxAge: 120 * 60 * 1000 * 100 }
+    store: new MongoStore({url: config.sessiondbpath}),
+    cookie: {secure: false, httpOnly: false, maxAge: 120 * 60 * 1000 * 100}
 }));
 
-app.use(ssoauth('pm','2.5'));
+app.use(ssoauth('pm', '2.5'));
 /// ssoauth
 //app.use(unless('/settoken', ssoauth.auth({
 //    clientId: 'clientId',
@@ -67,7 +66,7 @@ app.use(ssoauth('pm','2.5'));
 app.use(enrouten({directory: 'controllers'}));
 
 /// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
     next(err);
@@ -78,7 +77,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
+    app.use(function (err, req, res, next) {
         res.status(err.status || 500);
         res.render('buildin/error', {
             message: err.message,
@@ -89,7 +88,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('buildin/error', {
         message: err.status,
